@@ -11,20 +11,9 @@ public class VendorMapper implements RowMapper<Vendor> {
 
 	@Override
 	public Vendor mapRow(ResultSet rs, int rowNum) throws SQLException {
-	
-		String nameString = rs.getString(2);
-		
-		if(nameString == null)
-			return null;
-		
-		System.out.print(nameString);
-		
 		Vendor vendor = new Vendor();
-		vendor.setVendorID(rs.getInt("VENDORID"));
-		vendor.setVendorName(nameString);
+		vendor.setVendor_name(rs.getString(1));
+		vendor.setVendor_phone_number(rs.getLong(2));
 		return vendor;
 	}
-	
-	
-
 }

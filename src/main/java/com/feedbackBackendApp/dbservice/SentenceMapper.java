@@ -13,17 +13,13 @@ public class SentenceMapper implements RowMapper<Sentence>{
 
 	@Override
 	public Sentence mapRow(ResultSet rs, int rowNum) throws SQLException {
-		
 		Sentence sentence =  new Sentence();
 		TextSpan textSpan = new TextSpan();
-		
 		textSpan.setContent(rs.getString(1));
 		Sentiment messageSentiment = new Sentiment();
 		messageSentiment.setScore(rs.getDouble(2));
 		sentence.setText(textSpan);
 		sentence.setSentiment(messageSentiment);
-
-		// TODO Auto-generated method stub
 		return sentence;
 	}
 

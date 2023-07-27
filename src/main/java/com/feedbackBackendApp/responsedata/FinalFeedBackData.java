@@ -18,7 +18,10 @@ public class FinalFeedBackData {
 	String feedback;
 	int vendorID;
 	int isInaccurate;
-	List<Sentence> sentences; // 000000
+	List<Sentence> sentences;
+	List<Sentence> negativeSentences;
+	List<Sentence> positiveSentences;
+	List<Sentence> neutralSentences;
 //	EntitySentimentResponse entitySentimentResponse;
 //	Category category;
 
