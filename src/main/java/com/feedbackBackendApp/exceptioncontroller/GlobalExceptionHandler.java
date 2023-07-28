@@ -39,7 +39,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler(DuplicateKeyException.class)
 	public ResponseEntity<Object> handleUserExists1(RuntimeException re, WebRequest request){
-		System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
 		return new ResponseEntity<>(
 				userExistsError,
 				userExistsHeader,

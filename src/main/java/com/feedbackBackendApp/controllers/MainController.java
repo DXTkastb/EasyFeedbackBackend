@@ -113,45 +113,10 @@ public class MainController {
 		}
 		return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
 	}
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// NEW FEEDBACK API!!!
 
 	@PostMapping(value = "/check/upi")
 	public ResponseEntity<Integer> checkUpi(@RequestBody String upi) {
-		System.out.println(upi);
-		System.out.println("55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
 		int count = dbservice.checkVendorUpi(upi);
 		HttpStatusCode code = HttpStatus.OK;
 		if(count == 0) code = HttpStatus.NOT_FOUND;
@@ -182,20 +147,6 @@ public class MainController {
 		return new ResponseEntity<>(authUser,HttpStatus.OK);
 	}
 
-	@GetMapping("zz")
-	@ResponseBody
-	public String testJwt() {
-		return tokenService.generateTokenForVendor("Aman", "1234567890");
-	}
-
-	@GetMapping(value = "zzz", consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public User testJwt(@RequestBody String val) {
-		System.out.println("*************************************");
-		System.out.println(val);
-		System.out.println("*************************************");
-		return tokenService.generateUserFromToken(val);
-	}
 
 	@PostMapping(value = "/user/post/feedback")
 	public ResponseEntity<String> postFeedback(@RequestParam(value= "phoneNum") long user_phone_number, @RequestParam(value = "upiLink") String vendor_upi_id,
@@ -204,18 +155,15 @@ public class MainController {
 		dbservice.insertData(response);
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
-
-	@GetMapping(value = "zzzz")
-	@ResponseBody
-	public String testJwtx() {
-		String feedback = "This pizza exceeded my expectations! The crust was light and airy, the sauce was tangy, and the cheese was melty and flavorful. A true culinary delight that left me wanting more!";
-		feedback = "Deliciously cheesy, perfectly crispy crust, and an explosion of flavors! The pizza at [Restaurant Name] is an absolute delight. Each bite is a heavenly experience that leaves you craving for more. The toppings are generous, and the service is exceptional. It's a pizza paradise that I highly recommend!";
-		long number = 1111111111;
-		String upi = "Chips@Hot";
-		FinalFeedBack response = responsegenerator.getResponse(feedback, upi, number);
-		dbservice.insertData(response);// this is simple test db
-		return "56756";
+	
+	@GetMapping(value = "/pffxx")
+	public ResponseEntity<String> postFeedbackDummy() {
+		String feedback = "These candies are a delightful treat! The flavors are rich and diverse, leaving a mouthwatering sensation with every bite. The texture is perfectly smooth, making them incredibly enjoyable to savor. A definite favorite for satisfying my sweet cravings!";
+		FinalFeedBack response = responsegenerator.getResponse(feedback, "candyum@upi", 1122334455l);
+		dbservice.insertData(response);
+		return new ResponseEntity<>("DONE", HttpStatus.OK);
 	}
+
 
 	@PostMapping(value = "/vendor/signup", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Vendor> singUpVendor(@RequestBody Vendor vendor) {
@@ -230,7 +178,6 @@ public class MainController {
 
 	@PostMapping(value = "/vendor/login", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Vendor> loginVendor(@RequestBody Vendor vendor) {
-		System.out.println("LOGGING VENDOR!!");
 		Vendor db_vendor = dbservice.vendorAuth(vendor.getVendor_phone_number());
 		HttpHeaders headers = new HttpHeaders();
 		headers.addAll(mainHeaders);
@@ -239,21 +186,6 @@ public class MainController {
 		return new ResponseEntity<>(db_vendor,headers, HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/fffr")
-	public ResponseEntity<String> loginVendor() {
-		HttpHeaders headers = new HttpHeaders();
-
-		// headers.add("Access-Control-Allow-Origin", "*");
-
-		headers.add("Billo", " CAT");
-		headers.addAll(mainHeaders);
-		return new ResponseEntity<>("this fff route~!", headers, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/getv")
-	public ResponseEntity<List<Vendor>> getAllVendors() {
-		return new ResponseEntity<>(dbservice.getAllVendors(),HttpStatus.OK);
-	} 
 	
 	@GetMapping(value = "/vendor/feedbacks")
 	@ResponseBody
@@ -275,13 +207,6 @@ public class MainController {
 		System.out.println(token);
 		System.out.println(id);
 		User user = tokenService.generateUserFromToken(token);
-		return dbservice.getUserFeedbacks(user,id);
-	}
-	@GetMapping(value = "/ufff")
-	@ResponseBody
-	public List<Feedback> getUserFeedbacks(@RequestParam Integer id) {
-		User user = new User();
-		user.setUser_phone_number(1111111111l);
 		return dbservice.getUserFeedbacks(user,id);
 	}
 
